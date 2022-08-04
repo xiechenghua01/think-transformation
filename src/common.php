@@ -8,47 +8,17 @@
  */
 
 /**
- * 统一数据返回
- *
- * @param int $code 状态码
- * @param array $data  数据
- * @param int $status 状态码
- * @param string $msg 消息
- * @param int $httpStatus http状态码
- * @return \think\response\Json|string
- */
-function show(int $code = 0, array $data = [], int $status = 0, string $msg = '', int $httpStatus = 0)
-{
-    //如果消息提示为空，并且业务状态码定义了，那么就显示默认定义的消息提示
-    if (empty($msg) && !empty(config("transformation." . $code)))
-    {
-        $msg = config("transformation." . $code . ".msg");
-    }
-
-    // http状态码
-    $httpStatus = empty($httpStatus) && !empty(config("transformation." . $code . ".httpStatus"))
-        ? config("transformation." . $code . ".httpStatus")
-        : 200;
-
-    $result = [
-        'code' => $code,
-        'status' => $status,
-        'message' => $msg,
-        'data' => $data
-    ];
-
-    return json($result, $httpStatus);
-}
-
-/**
  * 抛出http异常
  *
  * @param string $message 异常信息
  * @param int $statusCode 异常状态码
  */
-function httpError(string $message, int $statusCode)
+if (!function_exists('httpError'))
 {
-    abort($statusCode, $message);
+    function httpError(string $message, int $statusCode): void
+    {
+        abort($statusCode, $message);
+    }
 }
 
 /**
@@ -56,9 +26,12 @@ function httpError(string $message, int $statusCode)
  *
  * @param string $message 异常信息
  */
-function httpErrorBadRequest(string $message = '错误请求')
+if (!function_exists('httpErrorBadRequest'))
 {
-    httpError($message, 400);
+    function httpErrorBadRequest(string $message = '错误请求'): void
+    {
+        httpError($message, 400);
+    }
 }
 
 /**
@@ -66,9 +39,12 @@ function httpErrorBadRequest(string $message = '错误请求')
  *
  * @param string $message 异常信息
  */
-function httpErrorUnauthorized(string $message = '未授权访问')
+if (!function_exists('httpErrorUnauthorized'))
 {
-    httpError($message, 401);
+    function httpErrorUnauthorized(string $message = '未授权访问'): void
+    {
+        httpError($message, 401);
+    }
 }
 
 /**
@@ -76,9 +52,12 @@ function httpErrorUnauthorized(string $message = '未授权访问')
  *
  * @param string $message 异常信息
  */
-function httpErrorForbidden(string $message = '无权访问该资源')
+if (!function_exists('httpErrorForbidden'))
 {
-    httpError($message, 403);
+    function httpErrorForbidden(string $message = '无权访问该资源'): void
+    {
+        httpError($message, 403);
+    }
 }
 
 /**
@@ -86,9 +65,12 @@ function httpErrorForbidden(string $message = '无权访问该资源')
  *
  * @param string $message 异常信息
  */
-function httpErrorNotFound(string $message = '资源不存在')
+if (!function_exists('httpErrorNotFound'))
 {
-    httpError($message, 404);
+    function httpErrorNotFound(string $message = '资源不存在'): void
+    {
+        httpError($message, 404);
+    }
 }
 
 /**
@@ -96,9 +78,12 @@ function httpErrorNotFound(string $message = '资源不存在')
  *
  * @param string $message 异常信息
  */
-function httpErrorMethodNotAllowed(string $message = '非法操作')
+if (!function_exists('httpErrorMethodNotAllowed'))
 {
-    httpError($message, 405);
+    function httpErrorMethodNotAllowed(string $message = '非法操作'): void
+    {
+        httpError($message, 405);
+    }
 }
 
 /**
@@ -106,9 +91,12 @@ function httpErrorMethodNotAllowed(string $message = '非法操作')
  *
  * @param string $message 异常信息
  */
-function httpErrorUnprocessableEntity(string $message = '表单验证失败')
+if (!function_exists('httpErrorUnprocessableEntity'))
 {
-    httpError($message, 422);
+    function httpErrorUnprocessableEntity(string $message = '表单验证失败'): void
+    {
+        httpError($message, 422);
+    }
 }
 
 /**
@@ -116,9 +104,12 @@ function httpErrorUnprocessableEntity(string $message = '表单验证失败')
  *
  * @param string $message 异常信息
  */
-function httpErrorInternal(string $message = '服务器错误')
+if (!function_exists('httpErrorInternal'))
 {
-    httpError($message, 500);
+    function httpErrorInternal(string $message = '服务器错误'): void
+    {
+        httpError($message, 500);
+    }
 }
 
 /**
@@ -126,8 +117,11 @@ function httpErrorInternal(string $message = '服务器错误')
  *
  * @param string $message 异常信息
  */
-function httpErrorNotReady(string $message = '资源未准备好')
+if (!function_exists('httpErrorNotReady'))
 {
-    httpError($message, 503);
+    function httpErrorNotReady(string $message = '资源未准备好'): void
+    {
+        httpError($message, 503);
+    }
 }
 
