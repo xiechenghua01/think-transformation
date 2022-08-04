@@ -7,6 +7,8 @@
  * @Time: 2022/8/4 10:38
  */
 
+namespace xiechenghua\Transformation;
+
 class Transformation
 {
     public function show(int $code = 0, array $data = [], string $msg = '', int $httpStatus = 0): \think\response\Json
